@@ -2,6 +2,7 @@ package Models.Creators;
 
 public class Author {
     private String name;
+    private String prenume;
     private String nationality;
 
     public Author(String name, String nationality) {
