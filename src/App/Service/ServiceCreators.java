@@ -1,8 +1,11 @@
 package App.Service;
 
+import App.Reader;
+import Models.Art.ArtProject;
 import Models.Creators.Author;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 public class ServiceCreators {
@@ -25,4 +28,66 @@ public class ServiceCreators {
         }
         return instance;
     }
+
+    public void addAuthor(Author newAuthor){
+        if(newAuthor != null)
+            authors.add(newAuthor);
+    }
+
+//    public void listAuthors(){
+//        authors.printAuthors();
+//    }
+
+    public void showAuthor(int no){
+        Reader objReader = Reader.getInstance();
+        Author resultSet = authors.get(no);
+        try {
+            System.out.println("Name: " + resultSet.getName());
+            System.out.println("Nationality: " + resultSet.getNationality());
+            System.out.println("Age: " + resultSet.getAge());
+        }catch (InputMismatchException e){
+            System.out.println("Invalid input!");
+        }
+    }
+
+    public
+
+    public void showAuthors(){
+        Reader objReader = Reader.getInstance();
+        for (int i = 0; i < authors.size(); i++)
+        try {
+            Author resultSet = authors.get(i);
+            System.out.println("---------------");
+            System.out.println("Name: " + resultSet.getName());
+            System.out.println("Nationality: " + resultSet.getNationality());
+            System.out.println("Age: " + resultSet.getAge());
+        }catch (InputMismatchException e){
+            System.out.println("Invalid input!");
+        }
+    }
+
+    public static void showAuthorFromArt(ArtProject artProject){
+        Author author = artProject.getAuthor();
+        try {
+            System.out.println("Name: " + author.getName());
+            System.out.println("Nationality: " + author.getNationality());
+            System.out.println("Age: " + author.getAge());
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input!");
+        }
+    }
+
+
+
+
+//    public void deleteAuthor(int type){
+//        Reader objReader = Reader.getInstance();
+//        try {
+//
+//            }
+//        }catch (InputMismatchException e){
+//            System.out.println("Invalid input!");
+//        }
+//    }
+
 }

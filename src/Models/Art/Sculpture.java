@@ -1,15 +1,18 @@
 package Models.Art;
 
-public class Sculpture {
+import Models.Creators.Author;
+
+public final class Sculpture extends ArtProject{
     private int weight;
     private String material;
-    private String color;
 
-    public Sculpture(int weight, String material, String color) {
-        this.weight = weight;
+
+    public Sculpture(String name, Author author, ArtisticMovement artisticMovement, int yearApperence, int weight, String material) {
+        super(name, author, artisticMovement, yearApperence);
         this.material = material;
-        this.color = color;
+        this.weight = weight;
     }
+
 
     public int getWeight() {
         return weight;
@@ -27,11 +30,4 @@ public class Sculpture {
         this.material = material;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 }

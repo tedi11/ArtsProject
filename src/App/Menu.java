@@ -10,7 +10,6 @@ public final class Menu {
     private static Menu instance;
     private Menu() {}
 
-    // static block initialization for exception handling
     static {
         try {
             instance = new Menu();
@@ -30,21 +29,26 @@ public final class Menu {
         System.out.println("-----------------------------------------------");
         System.out.println("Local museum application");
         System.out.println("Here are all the actions you can choose from:");
-        System.out.println("1. Add a museum.");
-        System.out.println("2. Add a painting.");
-        System.out.println("3. Add a sculpture.");
-        System.out.println("4. Sell a painting from a museum.");
+        System.out.println("1. Add a museum.");//done
+        System.out.println("2. Add a painting.");//done
+        System.out.println("3. Add a sculpture.");//done
+        System.out.println("4. Sell an art project from a museum.");//done
         System.out.println("5. Sell a sculpture from a museum.");
-        System.out.println("6. Add a new artistic movement.");
-        System.out.println("7. Add a new author.");
-        System.out.println("8. Add a new address.");
-        System.out.println("9. Make a new exposition.");
+        System.out.println("6. Add a new artistic movement.");//done
+        System.out.println("7. Add a new author.");//done
+        System.out.println("8. Add a new address.");//done
+        System.out.println("9. Make a new exposition.");//done
         System.out.println("10. What is the average year of appearance for an exposition?");
         System.out.println("11. Find art projects for a specific author.");
         System.out.println("12. Check if a painting is from a specific artistic movement.");
         System.out.println("13. What is the author with the most artworks.");
         System.out.println("14. What is the heaviest sculpture in a museum.");
-        System.out.println("15. Add artwork to a museum.");
+        System.out.println("15. Show museums.");//done
+        System.out.println("16. Show authors.");//done
+        System.out.println("17. Show expositions.");//done
+        System.out.println("18. Show artistic movements.");//done
+        System.out.println("19. Show every piece of art.");//done
+        System.out.println("20. Add a piece of art to a museum.");//done
         ///System.out.println("16. Print all local data.");
         System.out.println("0. Exit");
         System.out.println("-----------------------------------------------");
@@ -65,42 +69,31 @@ public final class Menu {
             reader.nextLine();
             System.out.println("-----------------------------------------------");
             switch (op) {
-                case 1 -> service.addMask(objReader.readMask());
-                case 2 -> service.listMasks();
-                case 3-> service.showMask(objReader.showMask());
-                case 4-> service.deleteMask(objReader.deleteMask());
+                case 1 -> serviceExpositions.addMuseum(objReader.readMuseum());
+                case 2 -> serviceArt.addPainting(objReader.readArtProject());
+                case 3-> serviceArt.addSculpture(objReader.readArtProject());
+                case 4-> serviceExpositions.sellPainting(objReader.readMuseumNr(), objReader.readArtNr());
                 case 5 -> service.addSanitizer(objReader.readSanitizer());
-                case 6 -> service.listSanitizers();
-                case 7 -> service.showSanitizer(objReader.showSanitizer());
-                case 8 -> service.deleteSanitizer(objReader.deleteSanitizer());
-                case 9 -> service.addClient(objReader.readClient());
+                case 6 -> serviceArt.addArtisticMovement(objReader.readArtisticMovement());
+                case 7 -> serviceCreators.addAuthor(objReader.readAuthor());
+                case 8 -> serviceExpositions.addAddress(objReader.readAddress());
+                case 9 -> serviceExpositions.addExposition(objReader.readExposition());
                 case 10 -> service.listClients();
                 case 11 -> {
-                    try{
-                        service.updateClient(objReader.getIndexForUpdate(), objReader.readClient());
-                    }catch (InputMismatchException e){
-                        System.out.println("Invalid input!");
-                    }
+                    return;
                 }
                 case 12 -> service.addAcquisition(objReader.readAcquisition());
                 case 13 -> service.listAcquisitions();
                 case 14 -> {
-                    try {
-                        service.incomeDate(objReader.readMonth(), objReader.readYear());
-                    }catch (InputMismatchException e){
-                        System.out.println("Invalid input!");
-                    }
+                    return;
                 }
-                case 15 -> {
-                    try{
-                        service.VAT(objReader.readYear());
-                    }catch (InputMismatchException e){
-                        System.out.println("Invalid input!");
-                    }
-                }
-                case 16 -> service.sortedSanitizers();
-                case 17-> service.configureTables();
-                ///case 18 -> service.printLocalData();
+                case 15 -> serviceExpositions.showMuseums();
+                case 16 -> serviceCreators.showAuthors();
+                case 17-> serviceExpositions.showExpositions();
+                case 18-> serviceArt.showArtisticMovements();
+                case 19-> serviceArt.showArts();
+                case 20-> serviceExpositions.addArtToMuseum(objReader.readMuseumNr(), objReader.readArtNr());
+                ///case 18 -> service.printLocalData(objReader);
                 case 0 -> {
                     service.closeConnection();
                     System.out.println("You left the app. Goodbye!");

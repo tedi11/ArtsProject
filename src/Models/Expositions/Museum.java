@@ -26,4 +26,36 @@ public class Museum {
         this.artProjects = artProjects;
 
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Set<ArtProject> getArtProjects() {
+        return artProjects;
+    }
+
+    public void setArtProjects(Set<ArtProject> artProjects) {
+        this.artProjects = artProjects;
+    }
 }

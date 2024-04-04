@@ -2,12 +2,21 @@ package Models.Creators;
 
 public class Author {
     private String name;
-    private String prenume;
     private String nationality;
+    private int age;
 
-    public Author(String name, String nationality) {
+    public Author(String name, String nationality, int age) {
         this.name = name;
         this.nationality = nationality;
+        this.age = age;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     public String getName() {
