@@ -1,5 +1,8 @@
 package Models.Expositions;
 
+import Models.Art.ArtProject;
+
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -7,18 +10,20 @@ public class Museum {
     private String name;
     private String contactEmail;
     private Address address;
-    //private Set<>
+    private Set<ArtProject> artProjects;
 
-    public Museum(String name, String contactEmail, Address address, boolean acceptsVouchers) {
+    public Museum(String name, String contactEmail, Address address) {
         this.name = name;
         this.contactEmail = contactEmail;
         this.address = address;
+        this.artProjects = new HashSet<>();
     }
 
-    public Museum(Museum m) {
-        this.name = m.name;
-        this.contactEmail = m.contactEmail;
-        this.address = new Address(m.address);
-    }
+    public Museum(String name, String contactEmail, Address address, Set<ArtProject> artProjects) {
+        this.name = name;
+        this.contactEmail = contactEmail;
+        this.address = address;
+        this.artProjects = artProjects;
 
+    }
 }
