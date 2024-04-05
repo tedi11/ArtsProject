@@ -3,7 +3,7 @@ import App.Service.ServiceArt;
 import App.Service.ServiceCreators;
 import App.Service.ServiceExpositions;
 
-import java.util.InputMismatchException;
+
 import java.util.Scanner;
 
 public final class Menu {
@@ -28,7 +28,6 @@ public final class Menu {
     {
         System.out.println("-----------------------------------------------");
         System.out.println("Local museum application");
-        System.out.println("Here are all the actions you can choose from:");
         System.out.println("1. Add a museum.");//done
         System.out.println("2. Add an art project.");//done
         System.out.println("3. Add a piece of art to a museum.");//done
