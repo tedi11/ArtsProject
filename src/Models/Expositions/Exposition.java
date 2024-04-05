@@ -34,7 +34,9 @@ public class Exposition {
     public Set<ArtProject> getArtProjects() {
         return artProjects;
     }
-
+    public void addProject(ArtProject artProject){
+        artProjects.add(artProject);
+    }
     public void setArtProjects(Set<ArtProject> artProjects) {
         this.artProjects = artProjects;
     }

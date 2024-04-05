@@ -9,7 +9,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 public class ServiceCreators {
-    List<Author> authors = new ArrayList<>();
+    static List<Author> authors = new ArrayList<>();
 
     private static ServiceCreators instance;
     private ServiceCreators() { }
@@ -29,7 +29,7 @@ public class ServiceCreators {
         return instance;
     }
 
-    public void addAuthor(Author newAuthor){
+    public static void addAuthor(Author newAuthor){
         if(newAuthor != null)
             authors.add(newAuthor);
     }
@@ -42,15 +42,15 @@ public class ServiceCreators {
         Reader objReader = Reader.getInstance();
         Author resultSet = authors.get(no);
         try {
-            System.out.println("Name: " + resultSet.getName());
-            System.out.println("Nationality: " + resultSet.getNationality());
-            System.out.println("Age: " + resultSet.getAge());
+            System.out.println("Name of the artistic author: " + resultSet.getName());
+            System.out.println("Nationality of the artistic author: " + resultSet.getNationality());
+            System.out.println("Age of the artistic author: " + resultSet.getAge());
         }catch (InputMismatchException e){
             System.out.println("Invalid input!");
         }
     }
 
-    public
+
 
     public void showAuthors(){
         Reader objReader = Reader.getInstance();
@@ -58,9 +58,9 @@ public class ServiceCreators {
         try {
             Author resultSet = authors.get(i);
             System.out.println("---------------");
-            System.out.println("Name: " + resultSet.getName());
-            System.out.println("Nationality: " + resultSet.getNationality());
-            System.out.println("Age: " + resultSet.getAge());
+            System.out.println("Name of the artistic author: " + resultSet.getName());
+            System.out.println("Nationality of the artistic author: " + resultSet.getNationality());
+            System.out.println("Age of the artistic author: " + resultSet.getAge());
         }catch (InputMismatchException e){
             System.out.println("Invalid input!");
         }
@@ -69,9 +69,9 @@ public class ServiceCreators {
     public static void showAuthorFromArt(ArtProject artProject){
         Author author = artProject.getAuthor();
         try {
-            System.out.println("Name: " + author.getName());
-            System.out.println("Nationality: " + author.getNationality());
-            System.out.println("Age: " + author.getAge());
+            System.out.println("Name of the artistic author: " + author.getName());
+            System.out.println("Nationality of the artistic author: " + author.getNationality());
+            System.out.println("Age of the artistic author: " + author.getAge());
         } catch (InputMismatchException e) {
             System.out.println("Invalid input!");
         }

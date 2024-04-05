@@ -1,5 +1,7 @@
 package App;
 
+import App.Service.ServiceArt;
+import App.Service.ServiceCreators;
 import Models.Art.ArtProject;
 import Models.Art.ArtisticMovement;
 import Models.Art.Painting;
@@ -47,23 +49,25 @@ public final class Reader {
         try {
             op = reader.nextInt();
             reader.nextLine();
+            System.out.print("Details about the project: ");
             switch (op) {
                 case 1 -> {
                     String name;
                     ArtisticMovement artisticMovement;
                     Author author;
                     int year, height, length;
-                    System.out.print("Name: ");
+                    System.out.print("Name of the project: ");
                     name = reader.nextLine();
-                    System.out.print("Year: ");
+                    System.out.print("The year when the project was published: ");
                     year = reader.nextInt();
-                    System.out.print("Height: ");
+                    System.out.print("Height of the project: ");
                     height = reader.nextInt();
-                    System.out.print("Length: ");
+                    System.out.print("Length of the project: ");
                     length = reader.nextInt();
                     artisticMovement = readArtisticMovement();
                     author = readAuthor();
-
+                    ServiceCreators.addAuthor(author);
+                    ServiceArt.addArtisticMovement(artisticMovement);
                     reader.nextLine();
                     artProject = new Painting(name, author, artisticMovement, year, height, length);
                 }
@@ -72,16 +76,19 @@ public final class Reader {
                     ArtisticMovement artisticMovement;
                     Author author;
                     int year, weight;
-                    System.out.print("Name: ");
+                    System.out.print("Name of the project: ");
                     name = reader.nextLine();
-                    System.out.print("Year: ");
+                    System.out.print("The year when the project was published: ");
                     year = reader.nextInt();
-                    System.out.print("Weight: ");
+                    System.out.print("Weight of the project: ");
                     weight = reader.nextInt();
-                    System.out.print("Material: ");
+                    System.out.print("Material of the project: ");
                     material = reader.nextLine();
+                    String nothing = reader.nextLine();
                     artisticMovement = readArtisticMovement();
                     author = readAuthor();
+                    ServiceCreators.addAuthor(author);
+                    ServiceArt.addArtisticMovement(artisticMovement);
                     reader.nextLine();
                     artProject = new Sculpture(name, author, artisticMovement, year, weight, material);
                 }
@@ -106,9 +113,9 @@ public final class Reader {
         try {
             System.out.print("Name of the author: ");
             name = reader.nextLine();
-            System.out.print("Nationality: ");
+            System.out.print("Nationality of the author: ");
             nat = reader.nextLine();
-            System.out.print("Age: ");
+            System.out.print("Age of the author: ");
             age = reader.nextInt();
             reader.nextLine();
         }catch (InputMismatchException e){
@@ -119,12 +126,43 @@ public final class Reader {
         return new Author(name, nat, age);
     }
 
+    public String readAuthorName(){
+        String name;
+        Scanner reader = new Scanner(System.in);
+        try {
+            System.out.print("Name of the author: ");
+            name = reader.nextLine();
+            reader.nextLine();
+        }catch (InputMismatchException e){
+            System.out.println("Invalid input!");
+            return null;
+        }
+
+        return name;
+    }
+
     public int readMuseumNr(){
 
         int nr;
         Scanner reader = new Scanner(System.in);
         try {
             System.out.print("Number of the museum: ");
+            nr = reader.nextInt();
+            reader.nextLine();
+        }catch (InputMismatchException e){
+            System.out.println("Invalid input!");
+            return -1;
+        }
+
+        return nr;
+    }
+
+    public int readExpoNr(){
+
+        int nr;
+        Scanner reader = new Scanner(System.in);
+        try {
+            System.out.print("Number of the exposition: ");
             nr = reader.nextInt();
             reader.nextLine();
         }catch (InputMismatchException e){
@@ -156,6 +194,7 @@ public final class Reader {
         int number;
         Scanner reader = new Scanner(System.in);
         try {
+            System.out.print("Details about address: ");
             System.out.print("Country: ");
             country = reader.nextLine();
             System.out.print("City: ");
@@ -178,13 +217,14 @@ public final class Reader {
         int yearApperence;
         Scanner reader = new Scanner(System.in);
         try {
-            System.out.print("Name: ");
+            System.out.print("Details about the artistic movement: ");
+            System.out.print("Name of the artistic movement: ");
             name = reader.nextLine();
-            System.out.print("Country: ");
+            System.out.print("Country where the artistic movement first appeared: ");
             country = reader.nextLine();
-            System.out.print("What is the first artist? ");
+            System.out.print("What is the first artist of the artistic movement? ");
             firstArtist = reader.nextLine();
-            System.out.print("What year did it appear: ");
+            System.out.print("What year did it appear? ");
             yearApperence = reader.nextInt();
             reader.nextLine();
         }catch (InputMismatchException e){
@@ -202,7 +242,7 @@ public final class Reader {
         try {
             System.out.print("Name of the museum: ");
             name = reader.nextLine();
-            System.out.print("Email: ");
+            System.out.print("Email to contact the museum: ");
             contact = reader.nextLine();
             address = readAddress();
             reader.nextLine();
@@ -222,11 +262,11 @@ public final class Reader {
         try {
             System.out.print("Name of the exposition: ");
             name = reader.nextLine();
-            System.out.print("Date: ");
+            System.out.print("Date of the exposition: ");
             date = LocalDate.parse(reader.nextLine());
-            System.out.print("Description: ");
+            System.out.print("Description of the exposition: ");
             description = reader.nextLine();
-            System.out.print("Price: ");
+            System.out.print("Price of the exposition: ");
             price = Integer.parseInt(reader.nextLine());
             reader.nextLine();
         }catch (InputMismatchException e){
@@ -250,9 +290,5 @@ public final class Reader {
             return null;
         }
         return name;
-    }
-
-    public Object sellPainting() {
-
     }
 }

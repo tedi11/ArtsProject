@@ -6,3 +6,4 @@ public class Main {
         menu.runMenu();
     }
 }
+//*TODO testat toate functionalitatile, adaugat inca niste functii, facut un input standard

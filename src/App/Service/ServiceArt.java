@@ -16,8 +16,8 @@ import java.util.List;
 
 public class ServiceArt {
 
-    List<ArtisticMovement> artisticMovements = new ArrayList<>();
-    List<ArtProject> artProjects = new ArrayList<>();
+    static List<ArtisticMovement> artisticMovements = new ArrayList<>();
+    static List<ArtProject> artProjects = new ArrayList<>();
 
     private static ServiceArt instance;
 
@@ -39,21 +39,30 @@ public class ServiceArt {
         return instance;
     }
 
-    public void showArt(ArtProject artProject) {
+    public static List<ArtProject> getArtProjects() {
+        return artProjects;
+    }
+
+    public static void showArt(ArtProject artProject) {
         Reader objReader = Reader.getInstance();
+        System.out.println("Am ajuns in showArt");
         try {
-            System.out.println("Name: " + artProject.getName());
+            System.out.println("Name of the project: " + artProject.getName());
             ServiceCreators.showAuthorFromArt(artProject);
             ServiceArt.showArtisticMovement(artProject.getArtisticMovement());
-            System.out.println("Year of appearance: " + artProject.getYearApperence());
+            System.out.println("Year of appearance of the project: " + artProject.getYearApperence());
             if (artProject instanceof Painting)
             {
-                System.out.println("Height: " + ((Painting)artProject).getHeight());
-                System.out.println("Length: " + ((Painting)artProject).getLength());
+                System.out.println("Height of the project: " + ((Painting)artProject).getHeight());
+                System.out.println("Length of the project: " + ((Painting)artProject).getLength());
             } else if (artProject instanceof Sculpture) {
-                System.out.println("Material: " + ((Sculpture)artProject).getMaterial());
-                System.out.println("Weight: " + ((Sculpture)artProject).getWeight());
+                System.out.println("Material of the project: " + ((Sculpture)artProject).getMaterial());
+                System.out.println("Weight of the project: " + ((Sculpture)artProject).getWeight());
             }
+            else
+                System.out.println("Error! in showArt ");
+
+
 
 
         } catch (InputMismatchException e) {
@@ -71,6 +80,11 @@ public class ServiceArt {
             artProjects.add(newArtProject);
     }
 
+    public static void addArtisticMovement(ArtisticMovement artisticMovement){
+        if(artisticMovement != null && !artisticMovements.contains(artisticMovement))
+            artisticMovements.add(artisticMovement);
+    }
+
 
 
     public void showArts() {
@@ -86,13 +100,28 @@ public class ServiceArt {
         }
     }
 
+    public void showArtsByAuthor(String name) {
+        Reader objReader = Reader.getInstance();
+        try {
+            for (ArtProject artProject : artProjects)
+                if (artProject.getAuthor().getName().equals(name))
+                {
+                    System.out.println("------------------");
+                    showArt(artProject);
+                }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input!");
+        }
+    }
+
+
     public static void showArtisticMovement(ArtisticMovement artisticMovement) {
         Reader objReader = Reader.getInstance();
         try {
-            System.out.println("Name: " + artisticMovement.getName());
-            System.out.println("Year of appearance: " + artisticMovement.getYearApperence());
-            System.out.println("First artist: " + artisticMovement.getFirstArtist());
-            System.out.println("Country: " + artisticMovement.getCountry());
+            System.out.println("Name of the artistic movement: " + artisticMovement.getName());
+            System.out.println("Year of appearance of the artistic movement: " + artisticMovement.getYearApperence());
+            System.out.println("First artist of the artistic movement: " + artisticMovement.getFirstArtist());
+            System.out.println("Country of the artistic movement: " + artisticMovement.getCountry());
         } catch (InputMismatchException e) {
             System.out.println("Invalid input!");
         }

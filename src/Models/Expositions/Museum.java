@@ -46,7 +46,9 @@ public class Museum {
     public Address getAddress() {
         return address;
     }
-
+    public void addProject(ArtProject artProject){
+        artProjects.add(artProject);
+    }
     public void setAddress(Address address) {
         this.address = address;
     }

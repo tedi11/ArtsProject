@@ -15,6 +15,10 @@ public class ArtProject {
         this.yearApperence = yearApperence;
     }
 
+    public ArtProject() {
+
+    }
+
     public String getName() {
         return name;
     }

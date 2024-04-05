@@ -39,19 +39,29 @@ public class ServiceExpositions {
     }
 
     public void addAddress(Address newAddress) {
-        if (newAddress != null)
+        if (newAddress != null && !addresses.contains(newAddress))
             addresses.add(newAddress);
     }
-
+public void calculateAverageYear(){
+        for (Exposition exposition : expositions)
+        {
+            int total = 0;
+            for(ArtProject artProject : exposition.getArtProjects())
+                total += artProject.getYearApperence();
+            System.out.println("Average year of appearance for exposition " + exposition.getName() + " is " + ((int) total/exposition.getArtProjects().size()) );
+        }
+        return;
+}
     public void sellPainting(int nrMuseum, int nrArt){
         Reader objReader = Reader.getInstance();
         try {
             int i = 0;
             ArtProject artProject2 = null;
-            for (ArtProject artProject : museums.get(nrMuseum).getArtProjects())
+            for (ArtProject artProject : museums.get(nrMuseum).getArtProjects()) {
                 if (i == nrArt)
                     artProject2 = artProject;
-
+                i++;
+            }
             museums.get(nrMuseum).getArtProjects().remove(artProject2);
         }catch (InputMismatchException e){
             System.out.println("Invalid input!");
@@ -62,12 +72,59 @@ public class ServiceExpositions {
         Reader objReader = Reader.getInstance();
         try {
             int i = 0;
-            ArtProject artProject2 = null;
-            for (ArtProject artProject : museums.get(nrMuseum).getArtProjects())
+            for (ArtProject artProject : ServiceArt.getArtProjects()){
                 if (i == nrArt)
-                    artProject2 = artProject;
+                {museums.get(nrMuseum).addProject(artProject);
 
-            museums.get(nrMuseum).getArtProjects().add(artProject2);
+            }i++;}
+                    //museums.get(nrMuseum).getArtProjects().add(artProject);
+
+
+        }catch (InputMismatchException e){
+            System.out.println("Invalid input!");
+        }
+    }
+
+    public void showHeaviest(int nrMuseum){
+        Reader objReader = Reader.getInstance();
+        try {
+            int g = -1;
+            ArtProject artProject1 = new ArtProject();
+
+            for (ArtProject artProject : museums.get(nrMuseum).getArtProjects())
+                if (artProject instanceof Sculpture)
+                    if (((Sculpture) artProject).getWeight() > g) {
+                        g = ((Sculpture) artProject).getWeight();
+                        artProject1 = artProject;
+                    }
+            if (g == -1)
+                System.out.println("There are no sculptures in this museum!");
+            else if (artProject1.getAuthor() != null) {
+                System.out.println("The heaviest sculpture is: ");
+                ServiceArt.showArt(artProject1);
+            }
+
+
+
+        }
+            //museums.get(nrMuseum).getArtProjects().add(artProject);
+
+
+        catch (InputMismatchException e){
+            System.out.println("Invalid input!");
+        }
+    }
+
+    public void addArtToExposition(int nrMuseum, int nrArt){
+        Reader objReader = Reader.getInstance();
+        try {
+            int i = 0;
+            for (ArtProject artProject : ServiceArt.getArtProjects())
+                if (i == nrArt)
+                {expositions.get(nrMuseum).getArtProjects().add(artProject);
+                i++;
+            }
+
         }catch (InputMismatchException e){
             System.out.println("Invalid input!");
         }
@@ -94,10 +151,11 @@ public class ServiceExpositions {
             Museum resultSet = museums.get(i);
             System.out.println("---------------");
             try {
-                System.out.println("Name: " + resultSet.getName());
-                System.out.println("Email: " + resultSet.getContactEmail());
+                System.out.println("Name of the museum: " + resultSet.getName());
+                System.out.println("Email of the museum: " + resultSet.getContactEmail());
+                System.out.println("Am ajuns in showMuseums");
                 showAddress(resultSet.getAddress());
-                showArtOfMuseum();
+                showArtOfMuseum(resultSet);
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input!");
             }
@@ -107,6 +165,7 @@ public class ServiceExpositions {
     public void showAddress(Address address) {
         Reader objReader = Reader.getInstance();
             try {
+                System.out.println("Details about the address:");
                 System.out.println("Country: " + address.getCountry());
                 System.out.println("City: " + address.getCity());
                 System.out.println("Street: " + address.getStreet());
@@ -121,10 +180,12 @@ public class ServiceExpositions {
 
     public void showArtOfMuseum(Museum museum) {
         Reader objReader = Reader.getInstance();
-
+        System.out.println("Am ajuns in showArtOfMuseum");
         try {
+            System.out.println("Am ajuns in showArtOfMuseum in try1");
             for (ArtProject artProject : museum.getArtProjects()){
-                showArt(artProject);
+                System.out.println("Am ajuns in showArtOfMuseum in try");
+                ServiceArt.showArt(artProject);
             }
 
         } catch (InputMismatchException e) {
@@ -138,15 +199,15 @@ public class ServiceExpositions {
             try {
                 Exposition resultSet = expositions.get(i);
                 System.out.println("---------------");
-                System.out.println("Name: " + resultSet.getName());
-                System.out.println("Date: " + resultSet.getDate());
-                System.out.println("Price: " + resultSet.getPrice());
-                System.out.println("Description: " + resultSet.getDescription());
-                System.out.println("Art projects:");
+                System.out.println("Name of the artistic exposition: " + resultSet.getName());
+                System.out.println("Date of the artistic exposition: " + resultSet.getDate());
+                System.out.println("Price of the artistic exposition: " + resultSet.getPrice());
+                System.out.println("Description of the artistic exposition: " + resultSet.getDescription());
+                System.out.println("Art projects of the artistic exposition:");
                 for (ArtProject artProject : expositions.get(i).getArtProjects())
                 {
                     System.out.println("###########");
-                    showArt(artProject);
+                    ServiceArt.showArt(artProject);
                 }
 
             }catch (InputMismatchException e){
