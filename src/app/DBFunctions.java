@@ -13,7 +13,7 @@ public class DBFunctions {
     private static Audit audit = Audit.getInstance();
 
     private DBFunctions() { }
-
+//test
     static {
         try {
             instance = new DBFunctions();

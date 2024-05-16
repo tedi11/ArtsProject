@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="16">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../../Program Files/PostgreSQL/16" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../../../../Program Files/PostgreSQL/16" recursive="false" />
+  </library>
+</component>
