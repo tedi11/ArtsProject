@@ -1,14 +1,10 @@
-package App.Service;
+package app.service;
 
-import App.Reader;
-import Models.Art.ArtProject;
-import Models.Art.ArtisticMovement;
-import Models.Art.Painting;
-import Models.Art.Sculpture;
-import Models.Creators.Author;
-import Models.Expositions.Address;
-import Models.Expositions.Exposition;
-import Models.Expositions.Museum;
+import app.Reader;
+import models.art.ArtProject;
+import models.art.ArtisticMovement;
+import models.art.Painting;
+import models.art.Sculpture;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -45,7 +41,6 @@ public class ServiceArt {
 
     public static void showArt(ArtProject artProject) {
         Reader objReader = Reader.getInstance();
-        System.out.println("Am ajuns in showArt");
         try {
             System.out.println("Name of the project: " + artProject.getName());
             ServiceCreators.showAuthorFromArt(artProject);

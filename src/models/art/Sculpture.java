@@ -1,6 +1,6 @@
-package Models.Art;
+package models.art;
 
-import Models.Creators.Author;
+import models.creators.Author;
 
 public final class Sculpture extends ArtProject{
     private int weight;

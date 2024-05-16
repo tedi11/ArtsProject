@@ -1,8 +1,8 @@
-package App.Service;
+package app.service;
 
-import App.Reader;
-import Models.Art.ArtProject;
-import Models.Creators.Author;
+import app.Reader;
+import models.art.ArtProject;
+import models.creators.Author;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -29,14 +29,12 @@ public class ServiceCreators {
         return instance;
     }
 
-    public static void addAuthor(Author newAuthor){
-        if(newAuthor != null)
+    public static void addAuthor(Author newAuthor) {
+        if (newAuthor != null)
+        {
             authors.add(newAuthor);
+        }
     }
-
-//    public void listAuthors(){
-//        authors.printAuthors();
-//    }
 
     public void showAuthor(int no){
         Reader objReader = Reader.getInstance();
@@ -49,8 +47,6 @@ public class ServiceCreators {
             System.out.println("Invalid input!");
         }
     }
-
-
 
     public void showAuthors(){
         Reader objReader = Reader.getInstance();
@@ -76,18 +72,5 @@ public class ServiceCreators {
             System.out.println("Invalid input!");
         }
     }
-
-
-
-
-//    public void deleteAuthor(int type){
-//        Reader objReader = Reader.getInstance();
-//        try {
-//
-//            }
-//        }catch (InputMismatchException e){
-//            System.out.println("Invalid input!");
-//        }
-//    }
 
 }

@@ -1,4 +1,6 @@
-package Models.Expositions;
+package models.expositions;
+
+import java.util.Objects;
 
 public final class Address {
     private String country;
@@ -36,6 +38,11 @@ public final class Address {
                 city.equals(a.city) &&
                 street.equals(a.street) &&
                 number == a.number;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(country, city, street, number);
     }
 
     public String getCountry() {

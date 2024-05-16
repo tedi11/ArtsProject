@@ -1,6 +1,8 @@
-package Models.Art;
+package models.art;
 
-import Models.Creators.Author;
+import models.creators.Author;
+
+import java.util.Objects;
 
 public class ArtProject {
     protected String name;
@@ -17,6 +19,22 @@ public class ArtProject {
 
     public ArtProject() {
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArtProject that = (ArtProject) o;
+        return yearApperence == that.yearApperence &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(author, that.author) &&
+                Objects.equals(artisticMovement, that.artisticMovement);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, author, artisticMovement, yearApperence);
     }
 
     public String getName() {

@@ -1,9 +1,8 @@
-package Models.Expositions;
+package models.expositions;
 
-import Models.Art.ArtProject;
+import models.art.ArtProject;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Museum {

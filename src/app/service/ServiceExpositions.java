@@ -1,13 +1,11 @@
-package App.Service;
+package app.service;
 
-import App.Reader;
-import Models.Art.ArtProject;
-import Models.Art.Painting;
-import Models.Art.Sculpture;
-import Models.Creators.Author;
-import Models.Expositions.Address;
-import Models.Expositions.Exposition;
-import Models.Expositions.Museum;
+import app.Reader;
+import models.art.ArtProject;
+import models.art.Sculpture;
+import models.expositions.Address;
+import models.expositions.Exposition;
+import models.expositions.Museum;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;

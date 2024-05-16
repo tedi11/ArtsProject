@@ -1,4 +1,6 @@
-package Models.Creators;
+package models.creators;
+
+import java.util.Objects;
 
 public class Author {
     private String name;
@@ -9,6 +11,19 @@ public class Author {
         this.name = name;
         this.nationality = nationality;
         this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Author author = (Author) o;
+        return age == author.age && Objects.equals(name, author.name) && Objects.equals(nationality, author.nationality);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, nationality, age);
     }
 
     public int getAge() {
@@ -34,4 +49,6 @@ public class Author {
     public void setNationality(String nationality) {
         this.nationality = nationality;
     }
+
+
 }

@@ -1,4 +1,4 @@
-package Models.Art;
+package models.art;
 
 public class ArtisticMovement {
     private String name;

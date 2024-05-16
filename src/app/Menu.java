@@ -1,7 +1,8 @@
-package App;
-import App.Service.ServiceArt;
-import App.Service.ServiceCreators;
-import App.Service.ServiceExpositions;
+package app;
+import app.service.ServiceArt;
+import app.service.ServiceCreators;
+import app.service.ServiceExpositions;
+import app.ServiceCRUD;
 
 
 import java.util.Scanner;
@@ -28,26 +29,26 @@ public final class Menu {
     {
         System.out.println("-----------------------------------------------");
         System.out.println("Local museum application");
-        System.out.println("1. Add a museum.");//done
-        System.out.println("2. Add an art project.");//done
-        System.out.println("3. Add a piece of art to a museum.");//done
-        System.out.println("4. Sell an art project from a museum.");//done
-        System.out.println("5. Show every piece of art.");//done
-        System.out.println("6. Add a new artistic movement.");//done
-        System.out.println("7. Add a new author.");//done
+        System.out.println("1. Add a museum.");
+        System.out.println("2. Add an art project.");
+        System.out.println("3. Add a piece of art to a museum.");
+        System.out.println("4. Sell an art project from a museum.");
+        System.out.println("5. Show every piece of art.");
+        System.out.println("6. Add a new artistic movement.");
+        System.out.println("7. Add a new author.");
         System.out.println("8. Add a new address.");//degeaba
-        System.out.println("9. Make a new exposition.");//done
-        System.out.println("10. What is the average year of appearance for every exposition?");//done
-        System.out.println("11. Find art projects for a specific author.");//done
+        System.out.println("9. Make a new exposition.");
+        System.out.println("10. What is the average year of appearance for every exposition?");
+        System.out.println("11. Find art projects for a specific author.");
         System.out.println("12. Check if a painting is from a specific artistic movement.");
         System.out.println("13. What is the author with the most artworks.");
-        System.out.println("14. What is the heaviest sculpture in a museum.");//done
-        System.out.println("15. Show museums.");//done
-        System.out.println("16. Show authors.");//done
-        System.out.println("17. Show expositions.");//done
-        System.out.println("18. Show artistic movements.");//done
-        System.out.println("19. Add a piece of art to an exposition.");//done
-        ///System.out.println("16. Print all local data.");
+        System.out.println("14. What is the heaviest sculpture in a museum.");
+        System.out.println("15. Show museums.");
+        System.out.println("16. Show authors.");
+        System.out.println("17. Show expositions.");
+        System.out.println("18. Show artistic movements.");
+        System.out.println("19. Add a piece of art to an exposition.");
+        System.out.println("20. Create tables.");;
         System.out.println("0. Exit");
         System.out.println("-----------------------------------------------");
     }
@@ -56,6 +57,7 @@ public final class Menu {
         ServiceArt serviceArt = ServiceArt.getInstance();
         ServiceCreators serviceCreators = ServiceCreators.getInstance();
         ServiceExpositions serviceExpositions = ServiceExpositions.getInstance();
+        ServiceCRUD serviceCRUD = ServiceCRUD.getInstance();
         Reader objReader = Reader.getInstance();
         int op;
 
@@ -90,7 +92,7 @@ public final class Menu {
                 case 17-> serviceExpositions.showExpositions();
                 case 18-> serviceArt.showArtisticMovements();
                 case 19-> serviceExpositions.addArtToExposition(objReader.readExpoNr(), objReader.readArtNr());
-                ///case 18 -> service.printLocalData(objReader);
+                case 20 -> serviceCRUD.configureTables();
                 case 0 -> {
                     //serviceArt.closeConnection();
                     System.out.println("You left the app. Goodbye!");

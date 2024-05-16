@@ -1,19 +1,20 @@
-package App;
+package app;
 
-import App.Service.ServiceArt;
-import App.Service.ServiceCreators;
-import Models.Art.ArtProject;
-import Models.Art.ArtisticMovement;
-import Models.Art.Painting;
-import Models.Art.Sculpture;
-import Models.Creators.Author;
-import Models.Expositions.Address;
-import Models.Expositions.Exposition;
-import Models.Expositions.Museum;
+import app.service.ServiceArt;
+import app.service.ServiceCreators;
+import models.art.ArtProject;
+import models.art.ArtisticMovement;
+import models.art.Painting;
+import models.art.Sculpture;
+import models.creators.Author;
+import models.expositions.Address;
+import models.expositions.Exposition;
+import models.expositions.Museum;
 
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.time.format.DateTimeParseException;
 
 public final class Reader {
     private static Reader instance;
@@ -255,15 +256,24 @@ public final class Reader {
     }
 
     public Exposition readExposition(){
-        LocalDate date;
+        LocalDate date = null;
+        boolean validDate = false;
         int price, noProjects;
         String description, name;
         Scanner reader = new Scanner(System.in);
         try {
             System.out.print("Name of the exposition: ");
             name = reader.nextLine();
-            System.out.print("Date of the exposition: ");
-            date = LocalDate.parse(reader.nextLine());
+            while (!validDate) {
+                System.out.print("Date of the exposition (yyyy-mm-dd): ");
+                String dateInput = reader.nextLine();
+                try {
+                    date = LocalDate.parse(dateInput);
+                    validDate = true;
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date format. Please enter the date in the format yyyy-mm-dd.");
+                }
+            }
             System.out.print("Description of the exposition: ");
             description = reader.nextLine();
             System.out.print("Price of the exposition: ");

@@ -1,9 +1,8 @@
-package Models.Expositions;
+package models.expositions;
 
-import Models.Art.ArtProject;
+import models.art.ArtProject;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
