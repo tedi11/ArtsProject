@@ -3,8 +3,14 @@ import app.service.ServiceArt;
 import app.service.ServiceCreators;
 import app.service.ServiceExpositions;
 import app.ServiceCRUD;
+import models.art.ArtProject;
+import models.art.Painting;
+import models.art.Sculpture;
+import models.creators.Author;
+import models.art.ArtisticMovement;
 
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public final class Menu {
@@ -93,6 +99,9 @@ public final class Menu {
                 case 18-> serviceArt.showArtisticMovements();
                 case 19-> serviceExpositions.addArtToExposition(objReader.readExpoNr(), objReader.readArtNr());
                 case 20 -> serviceCRUD.configureTables();
+                case 21 -> serviceCRUD.addArtProject(new Sculpture("nume", new Author("numeAutor", "natA", 29), new ArtisticMovement("numeCurent", 1999, "NumeFirts", "Ro"), 2000, 20, "stanca"));
+                //case 21 -> serviceCRUD.addArtisticMovement(objReader.readArtProject().read)
+                case 22 -> serviceCRUD.printArtisticMovements();
                 case 0 -> {
                     //serviceArt.closeConnection();
                     System.out.println("You left the app. Goodbye!");

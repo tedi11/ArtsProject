@@ -36,7 +36,7 @@ public class AuthorRepository {
         String query1 = "CREATE TABLE IF NOT EXISTS AUTHOR " +
                 "(id_author SERIAL PRIMARY KEY, " +
                 "authorName varchar(100), " +
-                "nationality varchar(15), " +
+                "nationality varchar(25), " +
                 "age int);";
 
         Statement statement;
@@ -58,7 +58,7 @@ public class AuthorRepository {
     {
         try
         {
-            String insertAuthorSql = "INSERT INTO AUTHORS(authorName, nationality, age) VALUES(?, ?, ?);";
+            String insertAuthorSql = "INSERT INTO author(authorName, nationality, age) VALUES(?, ?, ?);";
             DBFunctions db = DBFunctions.getInstance();
             Connection conn = db.connect_to_db();
             PreparedStatement authorStatement = conn.prepareStatement(insertAuthorSql, Statement.RETURN_GENERATED_KEYS);
@@ -66,8 +66,10 @@ public class AuthorRepository {
             authorStatement.setString(2, author.getNationality());
             authorStatement.setInt(3, author.getAge());
 
+
             int rows = authorStatement.executeUpdate();
             if (rows == 0) {
+
                 throw new SQLException("Inserting author failed, no rows affected.");
             }
             else{
@@ -85,6 +87,46 @@ public class AuthorRepository {
         }
         catch (SQLException e){
             System.out.println(e);
+        }
+        catch (IOException e){
+            System.out.println("Error with audit: " + e);
+        }
+    }
+
+    public void printAuthors()
+    {
+        String selectSql = "SELECT * FROM AUTHOR;";
+        DBFunctions db = DBFunctions.getInstance();
+        Connection conn = db.connect_to_db();
+
+        try (Statement stmt = conn.createStatement())
+        {
+            boolean empty = true;
+            ResultSet resultSet = stmt.executeQuery(selectSql);
+            while (resultSet.next())
+            {
+                if(empty){
+                    System.out.println("List of all authors:");
+                    System.out.println("----------" );
+                }
+                empty = false;
+                System.out.println("AuthorID: " + resultSet.getString(1) );
+                System.out.print("Author Name: " + resultSet.getString(2) + " " + '\n');
+                System.out.println("Nationality: " + resultSet.getString(3) );
+                System.out.print("Age: " + resultSet.getString(4) + " " + '\n');
+                ///System.out.println(resultSet.getString(7) + " " + resultSet.getString(8) + " " + resultSet.getString(9));
+                System.out.println("----------");
+            }
+            audit.logAction("Printed all authors");
+            DBFunctions.closeDatabaseConnection();
+            if (empty)
+            {
+                System.out.println("No existing authors!");
+            }
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
         }
         catch (IOException e){
             System.out.println("Error with audit: " + e);

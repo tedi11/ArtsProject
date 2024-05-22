@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DBFunctions {
     private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
-    private static final String USER = "pao";
-    private static final String PASSWORD = "123456";
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
     private static Connection databaseConnection = null;
     private static DBFunctions instance;
     private static Audit audit = Audit.getInstance();
@@ -31,13 +31,9 @@ public class DBFunctions {
 
     public Connection connect_to_db(){
         try{
-            System.out.println("Asta e1");
             Class.forName("org.postgresql.Driver");
-            System.out.println("Asta e2");
             if (databaseConnection == null || databaseConnection.isClosed()) {
-                System.out.println("Asta e3");
                 databaseConnection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-                System.out.println("Asta e4");
                 if (databaseConnection != null) {
                     audit.logAction("Open connection with database");
                 } else {
@@ -48,7 +44,6 @@ public class DBFunctions {
 
         }catch (Exception e){
             System.out.println(e);
-            System.out.println("Asta e");
         }
         return databaseConnection;
     }
