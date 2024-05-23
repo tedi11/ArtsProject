@@ -76,35 +76,27 @@ public final class Menu {
             System.out.println("-----------------------------------------------");
             switch (op) {
                 case 1 -> serviceExpositions.addMuseum(objReader.readMuseum());
-                case 2 -> serviceArt.addPainting(objReader.readArtProject());
+                case 2 -> serviceCRUD.addArtProject((objReader.readArtProject()));
                 case 3-> serviceExpositions.addArtToMuseum(objReader.readMuseumNr(), objReader.readArtNr());
                 case 4-> serviceExpositions.sellPainting(objReader.readMuseumNr(), objReader.readArtNr());
-                case 5 -> serviceArt.showArts();
-                case 6 -> serviceArt.addArtisticMovement(objReader.readArtisticMovement());
-                case 7 -> serviceCreators.addAuthor(objReader.readAuthor());
+                case 5 -> ServiceCRUD.printArts();
+                case 6 -> ServiceCRUD.addArtisticMovement(objReader.readArtisticMovement());
+                case 7 -> ServiceCRUD.addAuthors(objReader.readAuthor());
                 case 8 -> serviceExpositions.addAddress(objReader.readAddress());
                 case 9 -> serviceExpositions.addExposition(objReader.readExposition());
-                case 10 -> serviceExpositions.calculateAverageYear();
+                case 10 -> serviceExpositions.calculateAverageYear();///
                 case 11 -> serviceArt.showArtsByAuthor(objReader.readAuthorName());
-                case 12 -> {
-                    return;
-                }
-                case 13 -> {
-                    return;
-                }
+                case 12 -> serviceCRUD.updateAuthor(reader.nextInt(), objReader.readAuthor());
+                case 13 -> serviceArt.showArts();
                 case 14 -> serviceExpositions.showHeaviest(objReader.readMuseumNr());
                 case 15 -> serviceExpositions.showMuseums();
-                case 16 -> serviceCreators.showAuthors();
+                case 16 -> ServiceCRUD.printAuthors();
                 case 17-> serviceExpositions.showExpositions();
-                case 18-> serviceArt.showArtisticMovements();
+                case 18-> ServiceCRUD.printArtisticMovements();
                 case 19-> serviceExpositions.addArtToExposition(objReader.readExpoNr(), objReader.readArtNr());
                 case 20 -> serviceCRUD.configureTables();
-                case 21 -> serviceCRUD.addArtProject(new Sculpture("nume", new Author("numeAutor", "natA", 29), new ArtisticMovement("numeCurent", 1999, "NumeFirts", "Ro"), 2000, 20, "stanca"));
-                //case 21 -> serviceCRUD.addArtisticMovement(objReader.readArtProject().read)
-                case 22 -> serviceCRUD.printArtisticMovements();
                 case 0 -> {
-                    //serviceArt.closeConnection();
-                    System.out.println("You left the app. Goodbye!");
+                    System.out.println("You left the app.");
                 }
 
                 default -> System.out.println("Invalid option!");

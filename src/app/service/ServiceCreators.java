@@ -49,17 +49,16 @@ public class ServiceCreators {
     }
 
     public void showAuthors(){
-        Reader objReader = Reader.getInstance();
         for (int i = 0; i < authors.size(); i++)
-        try {
-            Author resultSet = authors.get(i);
-            System.out.println("---------------");
-            System.out.println("Name of the artistic author: " + resultSet.getName());
-            System.out.println("Nationality of the artistic author: " + resultSet.getNationality());
-            System.out.println("Age of the artistic author: " + resultSet.getAge());
-        }catch (InputMismatchException e){
-            System.out.println("Invalid input!");
-        }
+            try {
+                Author resultSet = authors.get(i);
+                System.out.println("---------------");
+                System.out.println("Name of the artistic author: " + resultSet.getName());
+                System.out.println("Nationality of the artistic author: " + resultSet.getNationality());
+                System.out.println("Age of the artistic author: " + resultSet.getAge());
+            }catch (InputMismatchException e){
+                System.out.println("Invalid input!");
+            }
     }
 
     public static void showAuthorFromArt(ArtProject artProject){

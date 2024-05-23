@@ -151,7 +151,6 @@ public void calculateAverageYear(){
             try {
                 System.out.println("Name of the museum: " + resultSet.getName());
                 System.out.println("Email of the museum: " + resultSet.getContactEmail());
-                System.out.println("Am ajuns in showMuseums");
                 showAddress(resultSet.getAddress());
                 showArtOfMuseum(resultSet);
             } catch (InputMismatchException e) {
@@ -178,11 +177,9 @@ public void calculateAverageYear(){
 
     public void showArtOfMuseum(Museum museum) {
         Reader objReader = Reader.getInstance();
-        System.out.println("Am ajuns in showArtOfMuseum");
+
         try {
-            System.out.println("Am ajuns in showArtOfMuseum in try1");
             for (ArtProject artProject : museum.getArtProjects()){
-                System.out.println("Am ajuns in showArtOfMuseum in try");
                 ServiceArt.showArt(artProject);
             }
 

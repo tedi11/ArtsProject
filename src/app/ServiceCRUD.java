@@ -1,5 +1,6 @@
 package app;
 
+import models.art.ArtProject;
 import models.art.Painting;
 import models.art.Sculpture;
 import models.creators.Author;
@@ -12,9 +13,9 @@ import repositories.ArtProjectRepository;
 import java.io.IOException;
 
 public final class ServiceCRUD {
-    private AuthorRepository authorRepository = AuthorRepository.getInstance();
-    private ArtisticMovementRepository artisticMovementRepository = ArtisticMovementRepository.getInstance();
-    private ArtProjectRepository  artProjectRepository = ArtProjectRepository.getInstance();
+    private static AuthorRepository authorRepository = AuthorRepository.getInstance();
+    private static ArtisticMovementRepository artisticMovementRepository = ArtisticMovementRepository.getInstance();
+    private static ArtProjectRepository  artProjectRepository = ArtProjectRepository.getInstance();
     private Audit audit = Audit.getInstance();
     private static ServiceCRUD instance;
 
@@ -49,29 +50,37 @@ public final class ServiceCRUD {
 
 
     }
-    public void addAuthors(Author newAuthor){
+    public static void addAuthors(Author newAuthor){
         if(newAuthor != null)
             authorRepository.addAuthor(newAuthor);
     }
 
-    public void printAuthors(){
+    public static void printAuthors(){
             authorRepository.printAuthors();
     }
 
-    public void addArtisticMovement(ArtisticMovement newArtisticMovement){
+    public static void addArtisticMovement(ArtisticMovement newArtisticMovement){
         if(newArtisticMovement != null)
             artisticMovementRepository.addArtisticMovement(newArtisticMovement);
     }
 
-    public void printArtisticMovements(){
+    public static void printArtisticMovements(){
         artisticMovementRepository.printArtisticMovements();
     }
 
-    public void addArtProject(Sculpture newPainting){
-        if(newPainting != null)
-            artProjectRepository.addArtProject(newPainting);
+    public void addArtProject(ArtProject artProject){
+        if(artProject != null)
+            artProjectRepository.addArtProject(artProject);
     }
 
+    public void updateAuthor(int ID, Author author){
+        if(author != null)
+            authorRepository.updateAuthor(ID, author);
+    }
+
+    public static void printArts(){
+        artProjectRepository.printArtProjects();
+    }
 
 
 

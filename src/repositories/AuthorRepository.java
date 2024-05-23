@@ -36,7 +36,7 @@ public class AuthorRepository {
         String query1 = "CREATE TABLE IF NOT EXISTS AUTHOR " +
                 "(id_author SERIAL PRIMARY KEY, " +
                 "authorName varchar(100), " +
-                "nationality varchar(25), " +
+                "nationality varchar(100), " +
                 "age int);";
 
         Statement statement;
@@ -132,5 +132,49 @@ public class AuthorRepository {
             System.out.println("Error with audit: " + e);
         }
     }
+
+
+    public void updateAuthor(int ID, Author author)
+    {
+
+        DBFunctions db = DBFunctions.getInstance();
+        Connection conn = db.connect_to_db();
+        try {
+
+            String testSql = "SELECT * FROM AUTHOR WHERE id_author = ?";
+            PreparedStatement maskStatement = conn.prepareStatement(testSql);
+            maskStatement.setInt(1, ID);
+            ResultSet resultSet = maskStatement.executeQuery();
+
+            boolean empty = true;
+            if (resultSet.next()) {
+                empty = false;
+                String updateAuthorSql = "UPDATE AUTHOR SET authorname = ?, nationality = ?,  age = ? WHERE id_author = ?";
+                PreparedStatement authorStatement = conn.prepareStatement(updateAuthorSql);
+                authorStatement.setString(1, author.getName());
+                authorStatement.setString(2, author.getNationality());
+                authorStatement.setInt(3, author.getAge());
+                authorStatement.setInt(4, ID);
+
+                authorStatement.executeUpdate();
+                audit.logAction("The author was updated");
+                System.out.println("The author was updated.");
+            }
+
+            DBFunctions.closeDatabaseConnection();
+            if (empty)
+            {
+                System.out.println("No existing author with this ID!");
+                audit.logAction("No author found for update with the given ID");
+            }
+        }
+        catch (SQLException e){
+            System.out.println(e);
+        }
+        catch (IOException e){
+            System.out.println("Error with audit: " + e);
+        }
+    }
+
 
 }

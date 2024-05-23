@@ -8,6 +8,7 @@ import models.art.ArtisticMovement;
 import models.art.Painting;
 import models.art.Sculpture;
 import models.creators.Author;
+import app.service.ServiceArt;
 
 import java.io.IOException;
 import java.sql.*;
@@ -16,6 +17,7 @@ public class ArtProjectRepository {
 
     private static ArtProjectRepository instance;
     private static Audit audit = Audit.getInstance();
+    ServiceArt serviceArt = ServiceArt.getInstance();
     private ArtProjectRepository() { }
 
     static {
@@ -98,6 +100,7 @@ public class ArtProjectRepository {
     }
 
     public void addArtProject(ArtProject artProject) {
+
         Author a = artProject.getAuthor();
         String insertAuthorSql = "INSERT INTO AUTHOR(authorName, nationality, age) VALUES(?, ?, ?);";
 
@@ -153,8 +156,12 @@ public class ArtProjectRepository {
             dataDictionary.addArtisticMovement(artisticId);
 
             try {
+
                 if (artProject instanceof Painting) {
                     String insertPaintingSql = "INSERT INTO PAINTING(name, id_author, id_artistic_movement, year_aperence_painting, height, length) VALUES(?, ?, ?, ?, ?, ?);";
+
+
+                    serviceArt.addPainting(artProject);
 
                     PreparedStatement artProjectStatement = conn.prepareStatement(insertPaintingSql, Statement.RETURN_GENERATED_KEYS);
                     artProjectStatement.setString(1, artProject.getName());
@@ -182,6 +189,9 @@ public class ArtProjectRepository {
 
                 } else if (artProject instanceof Sculpture) {
                     String insertSculptureSql = "INSERT INTO SCULPTURE(name, id_author, id_artistic_movement, year_aperence_painting, material, weight) VALUES(?, ?, ?, ?, ?, ?);";
+
+
+                    serviceArt.addSculpture(artProject);
 
                     PreparedStatement artProjectStatement = conn.prepareStatement(insertSculptureSql, Statement.RETURN_GENERATED_KEYS);
                     artProjectStatement.setString(1, artProject.getName());
@@ -217,6 +227,94 @@ public class ArtProjectRepository {
         } catch (SQLException | IOException e) {
             System.out.println(e);
         }
+    }
+
+    public Boolean printPaintings()
+    {
+        String selectSql = "SELECT * FROM PAINTING;";
+        DBFunctions db = DBFunctions.getInstance();
+        Connection conn = db.connect_to_db();
+        try (Statement stmt = conn.createStatement()) {
+            boolean empty = true;
+            ResultSet resultSet = stmt.executeQuery(selectSql);
+            while (resultSet.next()) {
+                if (empty) {
+                    System.out.println("List of all Paintings:");
+                    System.out.println("----------");
+                }
+                empty = false;
+                System.out.println("PaintingID: " + resultSet.getString(1));
+                System.out.print("Name: " + resultSet.getString(2) + " ");
+                System.out.println("AuthorID: " + resultSet.getString(6));
+                System.out.print("Artistic movement ID: " + resultSet.getString(3) + " ");
+                System.out.println("Year of appearance: " + resultSet.getString(4));
+                System.out.println("Height: " + resultSet.getString(5));
+                System.out.println("Length: " + resultSet.getString(6));
+                System.out.println("----------");
+            }
+            audit.logAction("Printed all Paintings");
+            DBFunctions.closeDatabaseConnection();
+            if (empty) {
+                System.out.println("No existing Paintings!");
+                return false;
+            }
+            return true;
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        catch (IOException e){
+            System.out.println("Error with audit: " + e);
+            return false;
+        }
+    }
+
+
+    public Boolean printSculptures()
+    {
+        String selectSql = "SELECT * FROM Sculpture;";
+        DBFunctions db = DBFunctions.getInstance();
+        Connection conn = db.connect_to_db();
+        try (Statement stmt = conn.createStatement()) {
+            boolean empty = true;
+            ResultSet resultSet = stmt.executeQuery(selectSql);
+            while (resultSet.next()) {
+                if (empty) {
+                    System.out.println("List of all Sculptures:");
+                    System.out.println("----------");
+                }
+                empty = false;
+                System.out.println("SculptureID: " + resultSet.getString(1));
+                System.out.print("Name: " + resultSet.getString(2) + " ");
+                System.out.println("AuthorID: " + resultSet.getString(6));
+                System.out.print("Artistic movement ID: " + resultSet.getString(3) + " ");
+                System.out.println("Year of appearance: " + resultSet.getString(4));
+                System.out.println("Material: " + resultSet.getString(5));
+                System.out.println("Weight: " + resultSet.getString(6));
+                System.out.println("----------");
+            }
+            audit.logAction("Printed all Sculptures");
+            DBFunctions.closeDatabaseConnection();
+            if (empty) {
+                System.out.println("No existing Sculptures!");
+                return false;
+            }
+            return true;
+        }catch (SQLException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+        catch (IOException e){
+            System.out.println("Error with audit: " + e);
+            return false;
+        }
+    }
+
+    public void printArtProjects() {
+        printPaintings();
+        printSculptures();
     }
 
 }

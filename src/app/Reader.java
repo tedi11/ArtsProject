@@ -204,7 +204,7 @@ public final class Reader {
             street = reader.nextLine();
             System.out.print("Number: ");
             number = reader.nextInt();
-            reader.nextLine();
+
         }catch (InputMismatchException e){
             System.out.println("Invalid input!");
             return null;
@@ -246,7 +246,7 @@ public final class Reader {
             System.out.print("Email to contact the museum: ");
             contact = reader.nextLine();
             address = readAddress();
-            reader.nextLine();
+
         }catch (InputMismatchException e){
             System.out.println("Invalid input!");
             return null;
